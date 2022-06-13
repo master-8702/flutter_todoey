@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_todoey/components/task_list.dart';
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -50,54 +49,16 @@ class TasksScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(
-                    top: 30, left: 20, right: 30, bottom: 25),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
+                  padding: const EdgeInsets.only(
+                      top: 30, left: 20, right: 30, bottom: 25),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
                   ),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Buy Milk"),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.check_box_outline_blank),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Buy Egs"),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.check_box_outline_blank),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Buy Ditergent",
-                          style:
-                              TextStyle(decoration: TextDecoration.lineThrough),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.check_box),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+                  child: TaskList()),
             ),
           ],
         ),
