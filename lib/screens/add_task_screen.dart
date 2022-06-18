@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  late String newTask;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,12 +27,17 @@ class AddTaskScreen extends StatelessWidget {
               TextFormField(
                 textAlign: TextAlign.center,
                 autofocus: true,
+                onChanged: (enteredValue) {
+                  newTask = enteredValue;
+                },
               ),
               const SizedBox(
                 height: 8,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop(newTask);
+                },
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(Colors.lightBlueAccent),

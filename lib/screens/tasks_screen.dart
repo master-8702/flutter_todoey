@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/components/task_list.dart';
 
+import '../models/task.dart';
 import 'add_task_screen.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(taskName: "Buy Milk"),
+    Task(taskName: "Buy Fruit"),
+    Task(taskName: "Buy Bread"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +40,7 @@ class TasksScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   const Text(
@@ -38,8 +50,8 @@ class TasksScreen extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.w700),
                   ),
-                  const Text("12 Tasks",
-                      style: TextStyle(
+                  Text("${tasks.length} Tasks",
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                       )),
@@ -60,15 +72,21 @@ class TasksScreen extends StatelessWidget {
                       topLeft: Radius.circular(20),
                     ),
                   ),
-                  child: TaskList()),
+                  child: TaskList(
+                    tasks: tasks,
+                  )),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
+        onPressed: () async {
+          // var aa =await Navigator.of(context).push(context,AddTaskScreen())
+          var a = await showModalBottomSheet(
               context: context, builder: (context) => AddTaskScreen());
+          setState(() {
+            tasks.add(Task(taskName: a));
+          });
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(
