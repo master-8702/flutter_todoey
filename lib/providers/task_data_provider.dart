@@ -5,35 +5,37 @@ import 'package:flutter_todoey/models/task.dart';
 // so that it will notify any changes on the properties of the class
 
 class TaskDataProvider extends ChangeNotifier {
-  List<Task> taskList = [
+  final List<Task> _taskList = [
     Task(taskName: "Buy Milk"),
     Task(taskName: "Buy Fruit"),
     Task(taskName: "Buy Bread"),
     Task(taskName: "Buy Bread 2"),
   ];
 
-  late bool isDone;
+  late bool _isDoneStatus;
 
-  int get taskCounter => taskList.length;
-  List<Task> get alltasks => taskList;
+  get isDone => _isDoneStatus;
+
+  int get taskCounter => _taskList.length;
+  List<Task> get alltasks => _taskList;
 
   void addTask(String newTaskName) {
     final t = Task(taskName: newTaskName);
-    taskList.add(t);
+    _taskList.add(t);
     notifyListeners();
-    for (var a in taskList) {
+    for (var a in _taskList) {
       print(a.taskName);
     }
   }
 
   void toggleDone() {
-    isDone = !isDone;
+    _isDoneStatus = !_isDoneStatus;
     notifyListeners();
   }
 
   void sampleMethod() {
     final ts = Task(taskName: "Buying Breaker");
-    taskList.add(ts);
+    _taskList.add(ts);
     notifyListeners();
   }
 }
