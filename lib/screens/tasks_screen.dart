@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/components/task_list.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_todoey/providers/task_data_provider.dart' hide TaskNew;
-import '../models/task.dart';
+import 'package:flutter_todoey/providers/task_data_provider.dart';
 import 'add_task_screen.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -11,14 +10,6 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    // tasks.add(context.read<TaskProvider>().addTask("blah 1"));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +44,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         color: Colors.white,
                         fontWeight: FontWeight.w700),
                   ),
-                  Text("${context.watch<TaskDataProvider>().taskCount} Tasks",
+                  Text("${context.watch<TaskDataProvider>().taskCounter} Tasks",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -75,33 +66,24 @@ class _TasksScreenState extends State<TasksScreen> {
                       topLeft: Radius.circular(20),
                     ),
                   ),
-                  child: TaskList(
-                      // tasks: tasks,
-
-                      )),
+                  child: TaskList()),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          int counter = context.read<TaskDataProvider>().taskCount;
-          // int counter = Provider.of<TaskProvider>(context, listen: false).count;
-          context.read<TaskDataProvider>().addTask("balh $counter");
-        },
-
-        // onPressed: () async {
-        //   // var aa =await Navigator.of(context).push(context,AddTaskScreen())
-        //   var a = await showModalBottomSheet(
-        //       context: context, builder: (context) => AddTaskScreen());
-        //   setState(() {
-        //     tasks.add(Task(taskName: a));
-        //   });
-        // },
-        backgroundColor: Colors.lightBlueAccent,
-        child: Icon(
-          Icons.add,
-          size: 35,
+      floatingActionButton: Consumer<TaskDataProvider>(
+        builder: (context, data, child) => FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => AddTaskScreen(),
+            );
+          },
+          backgroundColor: Colors.lightBlueAccent,
+          child: const Icon(
+            Icons.add,
+            size: 35,
+          ),
         ),
       ),
     );

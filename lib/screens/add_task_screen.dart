@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/task_data_provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  late final String newTask;
+  late String newTask;
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +37,21 @@ class AddTaskScreen extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(newTask);
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.lightBlueAccent),
-                ),
-                child: const Text(
-                  "Add",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+              Consumer<TaskDataProvider>(
+                builder: (context, taskData, child) => TextButton(
+                  onPressed: () {
+                    //
+                    taskData.addTask(newTask);
+                    Navigator.pop(context);
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.lightBlueAccent),
+                  ),
+                  child: const Text(
+                    "Add",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
               )
             ],

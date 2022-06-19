@@ -1,40 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/models/task.dart';
 
-// class TaskNew {
-//   late String taskName;
-//   late bool isDone;
-//
-//   TaskNew({required this.taskName, this.isDone = false});
-//
-//   void toggleDone() {
-//     isDone = !isDone;
-//   }
-// }
+// for the provider we add(extends) the "with changeNotifier" extension
+// so that it will notify any changes on the properties of the class
 
-// for the provider we add the "with changeNotifier" extension
-class TaskDataProvider with ChangeNotifier {
-  late List<Task> taskList = [
+class TaskDataProvider extends ChangeNotifier {
+  List<Task> taskList = [
     Task(taskName: "Buy Milk"),
     Task(taskName: "Buy Fruit"),
     Task(taskName: "Buy Bread"),
+    Task(taskName: "Buy Bread 2"),
   ];
-  late int taskCounter = taskList.length;
+
   late bool isDone;
 
-  int get taskCount => taskCounter;
+  int get taskCounter => taskList.length;
+  List<Task> get alltasks => taskList;
 
-  void addTask(taskName) {
-    Task t = Task(taskName: taskName);
+  void addTask(String newTaskName) {
+    final t = Task(taskName: newTaskName);
     taskList.add(t);
-    taskCounter++;
-    print(t);
     notifyListeners();
     for (var a in taskList) {
       print(a.taskName);
-      print(taskCount);
-
-      notifyListeners(); // in order to see the new changes on the screen, we must call notifyListners after every change
     }
   }
 
@@ -43,5 +31,9 @@ class TaskDataProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Task> get alltasks => taskList;
+  void sampleMethod() {
+    final ts = Task(taskName: "Buying Breaker");
+    taskList.add(ts);
+    notifyListeners();
+  }
 }
