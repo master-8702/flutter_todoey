@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  late String newTask;
+  late final String newTask;
 
   @override
   Widget build(BuildContext context) {

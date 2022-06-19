@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
-
-import '../models/task.dart';
+import 'package:provider/provider.dart';
+import '../providers/task_data_provider.dart';
 import 'task_tile.dart';
 
-class TaskList extends StatefulWidget {
-  final List<Task> tasks;
-  TaskList({required this.tasks});
-
-  @override
-  State<TaskList> createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
+class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return TaskTile(
-          taskName: widget.tasks[index].taskName,
-          isChecked: widget.tasks[index].isDone,
-          checkboxCallback: (checkboxState) {
-            setState(() {
-              widget.tasks[index].toggleDone();
-            });
+    // here rather than calling Provider.of(context). or context.watch<TaskDataProvider>()
+    // we define a consumer widget and we can get all our datas from it's taskData variable(parameter)
+
+    return Consumer<TaskDataProvider>(
+      builder: (context, taskData, child) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            return TaskTile(
+              taskName: taskData.taskList[index].taskName,
+              isChecked: taskData.taskList[index].isDone,
+              checkboxCallback: (checkboxState) {
+                // setState(() {
+                //   widget.tasks[index].toggleDone();
+                // });
+              },
+            );
           },
+          itemCount: taskData.taskCount,
         );
       },
-      itemCount: widget.tasks.length,
     );
   }
 }
