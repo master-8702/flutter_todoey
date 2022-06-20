@@ -35,6 +35,11 @@ class TaskDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTask(Task task) {
+    _taskList.remove(task);
+    notifyListeners();
+  }
+
   void toggleDone() {
     _isDoneStatus = !_isDoneStatus;
     notifyListeners();
