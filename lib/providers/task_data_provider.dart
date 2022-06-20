@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/models/task.dart';
 
@@ -17,7 +19,7 @@ class TaskDataProvider extends ChangeNotifier {
   get isDone => _isDoneStatus;
 
   int get taskCounter => _taskList.length;
-  List<Task> get alltasks => _taskList;
+  UnmodifiableListView<Task> get alltasks => UnmodifiableListView(_taskList);
 
   void addTask(String newTaskName) {
     final t = Task(taskName: newTaskName);
@@ -26,6 +28,11 @@ class TaskDataProvider extends ChangeNotifier {
     for (var a in _taskList) {
       print(a.taskName);
     }
+  }
+
+  void updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
   }
 
   void toggleDone() {
